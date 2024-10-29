@@ -155,3 +155,46 @@ class Deposito(Transacao):
     def registrar(self, conta):
         if conta.depositar(self.valor):
             conta.historico.adicionar_transacao(self)
+
+if __name__ == "__main__":
+    cliente = PessoaFisica("João Silva", "1990-01-01", "123.456.789-00", "Rua das Flores, 123")
+    conta = ContaCorrente("1234", cliente)
+
+    while True:
+        print("\n==== Menu Interativo ====")
+        print("1. Ver dados da conta")
+        print("2. Verificar saldo")
+        print("3. Realizar depósito")
+        print("4. Realizar saque")
+        print("5. Ver histórico de transações")
+        print("0. Sair")
+
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            print("\nDados da Conta:")
+            print(conta)
+
+        elif opcao == "2":
+            print(f"\nSaldo atual: R${conta.saldo:.2f}")
+
+        elif opcao == "3":
+            valor = float(input("Informe o valor para depósito: "))
+            conta.depositar(valor)
+
+        elif opcao == "4":
+            valor = float(input("Informe o valor para saque: "))
+            conta.sacar(valor)
+
+        elif opcao == "5":
+            print("\nHistórico de Transações:")
+            for transacao in conta.historico.transacoes:
+                print(transacao)
+
+        elif opcao == "0":
+            print("Saindo do sistema.")
+            break
+
+        else:
+            print("Opção inválida. Tente novamente.")
+
